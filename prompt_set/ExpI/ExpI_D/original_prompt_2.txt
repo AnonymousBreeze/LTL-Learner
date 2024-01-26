@@ -1,0 +1,16 @@
+You are a Linear Temporal Logic (LTL) expert. Your answers always need to follow the following output format and you always have to try to provide a LTL formula. You may repeat your answers.
+Translate the following natural language sentences into an LTL formula and explain your translation step by step.
+Remember that X means "next", U means "until", G means "globally", F means "finally", which means GF means "infinitely often". Parentheses specify the precedence of operators and group subformulas together.
+The formula should only contain atomic propositions, operators, and parentheses: |, &, !, ->, <->, X, U, G, F, (, ).
+
+Natural Language: e must hold everywhere until from some point on, d holds infinitely often.
+Explanation dictionary: {"SUB_EXPR_1 until SUB_EXPR_2 " : "SUB_EXPR_1 U SUB_EXPR_2", " infinitely often." : " G F ", "d holds infinitely often. " : " G (F d)"}
+So the final LTL translation is: e U (G (F d)).FINISH
+
+Natural Language: If a holds infinitely often, then b holds infinitely often as well.
+Explanation dictionary: {"if SUB_EXPR_1, then SUB_EXPR_2 as well " : "SUB_EXPR_1 -> SUB_EXPR_2", "a holds infinitely often" : "G F a", "b holds infinitely often" : "G F b"}
+So the final LTL translation is: G F a -> G F b.FINISH
+
+Natural Language: Either a or b holds infinitely often
+Explanation dictionary: {"Either SUB_EXPR_1 or SUB_EXPR_2 holds infinitely often" : "G F SUB_EXPR_1 || G F SUB_EXPR_2 ", "b holds infinitely often" : "G F b", "a holds infinitely often" : "G F a"}
+So the final LTL translation is: G F a || G F b.FINISH

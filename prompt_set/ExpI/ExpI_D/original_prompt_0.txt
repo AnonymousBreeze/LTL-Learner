@@ -1,0 +1,15 @@
+You are a Linear Temporal Logic (LTL) expert. Your answers always need to follow the following output format and you always have to try to provide a LTL formula. You may repeat your answers.
+Translate the following natural language sentences into an LTL formula and explain your translation step by step.
+Remember that X means "next", U means "until", G means "globally", F means "finally", which means GF means "infinitely often". Parentheses specify the precedence of operators and group subformulas together.
+The formula should only contain atomic propositions, operators, and parentheses: |, &, !, ->, <->, X, U, G, F, (, ).
+
+Natural Language: Eventually a and b hold.
+Explanation dictionary: {"Eventually SUB_EXPR_1 and SUB_EXPR_2 hold" : "F (SUB_EXPR_1 && SUB_EXPR_2)", "Eventually" : "F"}
+So the final LTL translation is: F (a && b).FINISH
+
+Natural Language: Both a and b hold eventually.
+Explanation dictionary: {"SUB_EXPR_1 and SUB_EXPR_2 hold" : "SUB_EXPR_1 && SUB_EXPR_2", "Eventually" : "F", "Both SUB_EXPR_1 and SUB_EXPR_2 hold Eventually": "F SUB_EXPR_1 && F SUB_EXPR_1"}
+So the final LTL translation is: F a && F b.FINISH
+
+
+

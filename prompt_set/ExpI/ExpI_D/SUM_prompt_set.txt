@@ -1,0 +1,105 @@
+You are a Linear Temporal Logic (LTL) expert. Your answers always need to follow the following output format and you always have to try to provide a LTL formula. You may repeat your answers.
+Translate the following natural language sentences into an LTL formula and explain your translation step by step.
+Remember that X means "next", U means "until", G means "globally", F means "finally", which means GF means "infinitely often". Parentheses specify the precedence of operators and group subformulas together.
+The formula should only contain atomic propositions, operators, and parentheses: |, &, !, ->, <->, X, U, G, F, (, ).
+
+***MUST answer in this format:***
+[
+Explanation dictionary: 
+So the final LTL translation is:    
+]
+
+Natural Language: Eventually a and b hold.
+Explanation dictionary: {"Eventually SUB_EXPR_1 and SUB_EXPR_2 hold" : "F (SUB_EXPR_1 && SUB_EXPR_2)", "Eventually" : "F"}
+So the final LTL translation is: F (a && b).FINISH
+
+Natural Language: Both a and b hold eventually.
+Explanation dictionary: {"SUB_EXPR_1 and SUB_EXPR_2 hold" : "SUB_EXPR_1 && SUB_EXPR_2", "Eventually" : "F", "Both SUB_EXPR_1 and SUB_EXPR_2 hold Eventually": "F SUB_EXPR_1 && F SUB_EXPR_1"}
+So the final LTL translation is: F a && F b.FINISH
+
+Natural Language: Globally if a holds then c is true until b.
+Explanation dictionary: {"a holds" : "a", "c is true until b" : "c U b", "if a holds then c is true until b" : "a -> c U b", "Globally" : "G"}
+So the final LTL translation is: G (a -> (c U b)).FINISH
+
+Natural Language: If b holds then, in the next step, c holds until a holds or always c holds.
+Explanation dictionary: {"If SUB_EXPR_1, next , SUB_EXPR_2 until SUB_EXPR_3 or SUB_EXPR_4" : "G(SUB_EXPR_1 -> X (SUB_EXPR_2 U SUB_EXPR_3 || SUB_EXPR_4))", "If SUB_EXPR_1  SUB_EXPR_2": "G(SUB_EXPR_1 -> SUB_EXPR_2)", "SUB_EXPR_1  until SUB_EXPR_2 " : "SUB_EXPR_1 U SUB_EXPR_2"}
+So the final LTL translation is: G(b->X((cUa)||Gc)).FINISH
+
+Natural Language: If it is the case that every a is eventually followed by a b, then c needs to holds infinitely often.
+Explanation dictionary: {"IF SUB_EXPR_1 eventually followed by SUB_EXPR_2, then SUB_EXPR_3" : "G (SUB_EXPR_1 -> F SUB_EXPR_2) -> SUB_EXPR_3", "it is the case that every SUB_EXPR_1 is eventually followed by SUB_EXPR_2" : "G(SUB_EXPR_1 -> F SUB_EXPR_2)", "SUB_EXPR needs to holds infinitely often" : "GF SUB_EXPR"}
+So the final LTL translation is: G(a->Fb)->GFc.FINISH
+
+Natural Language: If a holds b will eventually hold.
+Explanation dictionary: {"IF SUB_EXPR_1  SUB_EXPR_2 eventually" : "G (SUB_EXPR_1 -> F SUB_EXPR_2)"}
+So the final LTL translation is: G(a->Fb).FINISH
+
+Natural Language: a can only hold every three timestamps.
+Explanation dictionary: {"SUB_EXPR only every three timestamps": "G ( SUB_EXPR -> (X !SUB_EXPR || XX !SUB_EXPR || XXX !SUB_EXPR))"}
+So the final LTL translation is: G ( a -> (X !a || XX !a || XXX !a)).FINISH
+
+Natural Language: a holds in every fourth step.
+Explanation dictionary: {"SUB_EXPR in every three step": "SUB_EXPR && G(SUB_EXPR-> X!SUB_EXPR && XX! SUB_EXPR && XXX! SUB_EXPR && XXXX SUB_EXPR)"}
+So the final LTL translation is: a && G(a->X!a && XX!a && XXX!a && XXXXa).FINISH
+
+Natural Language: a holds in every second step.
+Explanation dictionary: {"SUB_EXPR in every second step": "SUB_EXPR && G(SUB_EXPR-> X!SUB_EXPR && XX SUB_EXPR)"}
+So the final LTL translation is: a && G(a->X!a && XXa).FINISH
+
+Natural Language: Whenever a is enabled, b is enabled three steps later.
+Explanation dictionary: {"Whenever SUB_EXPR_1, SUB_EXPR_2": "G(SUB_EXPR_1 -> SUB_EXPR_2)" ,"a is enabled" : "a", "b is enabled three steps later" : "X(X(Xb))"}
+So the final LTL translation is: G(a->X(X(Xb))).FINISH
+
+Natural Language: not a holds at most two timestamps.
+Explanation dictionary: {"not SUB_EXPR at most two timestamps": "!G(!( SUB_EXPR && X SUB_EXPR))"}
+So the final LTL translation is: !G(!(a&&Xa)).FINISH
+
+Natural Language: a must always hold, but if is execeeds, it allow two timestamps to recover.
+Explanation dictionary: {"always SUB_EXPR, but if execeeds, two timestamps to recover ": "!G(!( SUB_EXPR && X SUB_EXPR))"}
+So the final LTL translation is: !G(!(a&&Xa)).FINISH
+
+Natural Language: Whenever a holds, b must hold in the next two steps.
+Explanation dictionary: {"Whenever SUB_EXPR_1 , SUB_EXPR_2": "G(SUB_EXPR_1 -> SUB_EXPR_2)", " SUB_EXPR must hold in the next two steps": "SUB_EXPR || X SUB_EXPR"}
+So the final LTL translation is: G(a->(b||Xb)).FINISH
+
+Natural Language: Once a happened, b won't happen again.
+Explanation dictionary: {"Once SUB_EXPR_1 , won't SUB_EXPR_2": "G(SUB_EXPR_1 -> XG!SUB_EXPR_2)", "Once SUB_EXPR_1 ,  SUB_EXPR_2": "G(SUB_EXPR_1 -> SUB_EXPR_2)","won't SUB_EXPR_2": "XG!SUB_EXPR_2"}
+So the final LTL translation is: G(a->XG!b).FINISH
+
+
+Natural Language: a can only happen if b happend before.
+Explanation dictionary: {"SUB_EXPR_1 only if SUB_EXPR_2 before": "(!SUB_EXPR_1) U SUB_EXPR_1"}
+So the final LTL translation is: (!a)Ub.FINISH
+
+Natural Language: e must hold everywhere until from some point on, d holds infinitely often.
+Explanation dictionary: {"SUB_EXPR_1 until SUB_EXPR_2 " : "SUB_EXPR_1 U SUB_EXPR_2", " infinitely often." : " G F ", "d holds infinitely often. " : " G (F d)"}
+So the final LTL translation is: e U (G (F d)).FINISH
+
+Natural Language: If a holds infinitely often, then b holds infinitely often as well.
+Explanation dictionary: {"if SUB_EXPR_1, then SUB_EXPR_2 as well " : "SUB_EXPR_1 -> SUB_EXPR_2", "a holds infinitely often" : "G F a", "b holds infinitely often" : "G F b"}
+So the final LTL translation is: G F a -> G F b.FINISH
+
+Natural Language: Either a or b holds infinitely often
+Explanation dictionary: {"Either SUB_EXPR_1 or SUB_EXPR_2 holds infinitely often" : "G F SUB_EXPR_1 || G F SUB_EXPR_2 ", "b holds infinitely often" : "G F b", "a holds infinitely often" : "G F a"}
+So the final LTL translation is: G F a || G F b.FINISH
+
+
+Natural Language: a releases b.
+Explanation dictionary: {"SUB_EXPR_1 release SUB_EXPR_2" : "( SUB_EXPR_2 U ( SUB_EXPR_2 && !SUB_EXPR_1 )) || G SUB_EXPR_2"}
+So the final LTL translation is: ( b U ( b && !a )) || G b.FINISH
+
+Natural Language: If b holds at some point, a has to hold somewhere beforehand.
+Explanation dictionary: {"If SUB_EXPR_1 , SUB_EXPR_2 beforehand" : "SUB_EXPR_1 -> (!SUB_EXPR_1 U (SUB_EXPR_2 && !SUB_EXPR_1))", "b holds at some point" : "F b"}
+So the final LTL translation is: (Fb)->(!bU(a&&!b)).FINISH
+
+Natural Language: a never holds from some point in time on.
+Explanation dictionary: { "SUB_EXPR never from some point in time on" : "F G ! SUB_EXPR", "never SUB_EXPR " : "G ! SUB_EXPR"}
+So the final LTL translation is: FG!a.FINISH
+
+Natural Language: Whenever the inputs a and b are the same, the outputs c and d are the same.
+Explanation dictionary: { "Whenever SUB_EXPR_1 , SUB_EXPR_2" : "G(SUB_EXPR_1 -> SUB_EXPR_2)", "SUB_EXPR_1 and SUB_EXPR_2 are the same" : "SUB_EXPR_1 <-> SUB_EXPR_2"}
+So the final LTL translation is: G((a<->b)->(c<->d)).FINISH
+
+Natural Language: Whenever a and b do not hold, c holds eventually.
+Explanation dictionary: { "Whenever SUB_EXPR_1 , SUB_EXPR_2" : "G(SUB_EXPR_1 -> SUB_EXPR_2)", "SUB_EXPR_1 and SUB_EXPR_2 not hold" : "!(SUB_EXPR_1 && SUB_EXPR_2)", "SUB_EXPR eventually" : "F SUB_EXPR"}
+So the final LTL translation is: G(!(a&&b)->Fc).FINISH
+

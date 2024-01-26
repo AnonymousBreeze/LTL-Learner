@@ -1,0 +1,40 @@
+You are a Linear Temporal Logic (LTL) expert. Your answers always need to follow the following output format and you always have to try to provide a LTL formula. You may repeat your answers.
+Translate the following natural language sentences into an LTL formula and explain your translation step by step.
+Remember that X means "next", U means "until", G means "globally", F means "finally", which means GF means "infinitely often". Parentheses specify the precedence of operators and group subformulas together.
+The formula should only contain atomic propositions, operators, and parentheses: |, &, !, ->, <->, X, U, G, F, (, ).
+
+***MUST answer in this format:***
+[
+Explanation dictionary: 
+So the final LTL translation is:    
+]
+
+INPUT 
+Natural Language: Globally if a holds then c is true until b.
+OUTPUT
+Explanation dictionary: {"a holds" : "a", "c is true until b" : "c U b", "if a holds then c is true until b" : "a -> c U b", "Globally" : "G"}
+So the final LTL translation is: G (a -> (c U b)).FINISH
+
+INPUT
+Natural Language: Every request r is eventually followed by a grant g.
+OUTPUT
+Explanation dictionary: {"Request r" : "r", "grant g" : "g", "every" : "G", "eventually" : "F", "followed by" : "->"}
+So the final LTL translation is: G (r -> F g).FINISH
+
+INPUT 
+Natural Language: it never happens that the sensor retrieves data or the manager handles requests or the elevator falls
+OUTPUT
+Explanation dictionary: {"it never happen that SUB_EXPR" : "G(!( SUB_EXPR ))", "the sensor retrieves data" : "sensor_retrieves_data", "the manager handles requests" : "manager_handles_requests", "the elevator falls" : "elevator_falls", "or" : "|"}
+So the final LTL translation is: G(!( sensor_retrieves_data | manager_handles_requests | elevator_falls )).FINISH
+
+INPUT 
+Natural Language: it will not happen that tRdcOEMYfkvOyC
+OUTPUT
+Explanation dictionary: {"it will not happen that SUB_EXPR" : "G(!( SUB_EXPR ))", "tRdcOEMYfkvOyC" : "tRdcOEMYfkvOyC"}
+So the final LTL translation is: G(!( tRdcOEMYfkvOyC )).FINISH
+
+INPUT 
+Natural Language: never, brDJByV or yQoNUAYsCjQo or bBiiqLBJe
+OUTPUT
+Explanation dictionary: {"never" : "G(!( SUB_EXPR )), "or" : "|", "brDJByV" : "brDJByV", "yQoNUAYsCjQo" : "yQoNUAYsCjQo", "bBiiqLBJe" : "bBiiqLBJe"}
+So the final LTL translation is: G(!( brDJByV | yQoNUAYsCjQo | bBiiqLBJe)).FINISH

@@ -1,0 +1,24 @@
+You are a Linear Temporal Logic (LTL) expert. Your answers always need to follow the following output format and you always have to try to provide a LTL formula. You may repeat your answers.
+Translate the following natural language sentences into an LTL formula and explain your translation step by step.
+Remember that X means "next", U means "until", G means "globally", F means "finally", which means GF means "infinitely often". Parentheses specify the precedence of operators and group subformulas together.
+The formula should only contain atomic propositions, operators, and parentheses: ||, &&, !, ->, <->, X, U, G, F, (, ).
+
+Natural Language: a releases b.
+Explanation dictionary: {"SUB_EXPR_1 release SUB_EXPR_2" : "( SUB_EXPR_2 U ( SUB_EXPR_2 && !SUB_EXPR_1 )) || G SUB_EXPR_2"}
+So the final LTL translation is: ( b U ( b && !a )) || G b.FINISH
+
+Natural Language: If b holds at some point, a has to hold somewhere beforehand.
+Explanation dictionary: {"If SUB_EXPR_1 , SUB_EXPR_2 beforehand" : "SUB_EXPR_1 -> (!SUB_EXPR_1 U (SUB_EXPR_2 && !SUB_EXPR_1))", "b holds at some point" : "F b"}
+So the final LTL translation is: (Fb)->(!bU(a&&!b)).FINISH
+
+Natural Language: a never holds from some point in time on.
+Explanation dictionary: { "SUB_EXPR never from some point in time on" : "F G ! SUB_EXPR", "never SUB_EXPR " : "G ! SUB_EXPR"}
+So the final LTL translation is: FG!a.FINISH
+
+Natural Language: Whenever the inputs a and b are the same, the outputs c and d are the same.
+Explanation dictionary: { "Whenever SUB_EXPR_1 , SUB_EXPR_2" : "G(SUB_EXPR_1 -> SUB_EXPR_2)", "SUB_EXPR_1 and SUB_EXPR_2 are the same" : "SUB_EXPR_1 <-> SUB_EXPR_2"}
+So the final LTL translation is: G((a<->b)->(c<->d)).FINISH
+
+Natural Language: Whenever a and b do not hold, c holds eventually.
+Explanation dictionary: { "Whenever SUB_EXPR_1 , SUB_EXPR_2" : "G(SUB_EXPR_1 -> SUB_EXPR_2)", "SUB_EXPR_1 and SUB_EXPR_2 not hold" : "!(SUB_EXPR_1 && SUB_EXPR_2)", "SUB_EXPR eventually" : "F SUB_EXPR"}
+So the final LTL translation is: G(!(a&&b)->Fc).FINISH

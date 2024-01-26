@@ -1,0 +1,284 @@
+You are a Linear Temporal Logic (LTL) expert. Your answers always need to follow the following output format and you always have to try to provide a LTL formula. You may repeat your answers.
+Translate the following natural language sentences into an LTL formula and explain your translation step by step.
+Remember that X means "next", U means "until", G means "globally", F means "finally", which means GF means "infinitely often". Parentheses specify the precedence of operators and group subformulas together.
+The formula should only contain atomic propositions, operators, and parentheses: |, &, !, ->, <->, X, U, G, F, (, ).
+
+***MUST answer in this format:***
+[
+Explanation dictionary: 
+So the final LTL translation is:    
+]
+
+INPUT 
+Natural Language: Globally if a holds then c is true until b.
+OUTPUT
+Explanation dictionary: {"a holds" : "a", "c is true until b" : "c U b", "if a holds then c is true until b" : "a -> c U b", "Globally" : "G"}
+So the final LTL translation is: G (a -> (c U b)).FINISH
+
+INPUT
+Natural Language: Every request r is eventually followed by a grant g.
+OUTPUT
+Explanation dictionary: {"Request r" : "r", "grant g" : "g", "every" : "G", "eventually" : "F", "followed by" : "->"}
+So the final LTL translation is: G (r -> F g).FINISH
+
+INPUT 
+Natural Language: it never happens that the sensor retrieves data or the manager handles requests or the elevator falls
+OUTPUT
+Explanation dictionary: {"it never happen that SUB_EXPR" : "G(!( SUB_EXPR ))", "the sensor retrieves data" : "sensor_retrieves_data", "the manager handles requests" : "manager_handles_requests", "the elevator falls" : "elevator_falls", "or" : "|"}
+So the final LTL translation is: G(!( sensor_retrieves_data | manager_handles_requests | elevator_falls )).FINISH
+
+INPUT 
+Natural Language: it will not happen that tRdcOEMYfkvOyC
+OUTPUT
+Explanation dictionary: {"it will not happen that SUB_EXPR" : "G(!( SUB_EXPR ))", "tRdcOEMYfkvOyC" : "tRdcOEMYfkvOyC"}
+So the final LTL translation is: G(!( tRdcOEMYfkvOyC )).FINISH
+
+INPUT 
+Natural Language: never, brDJByV or yQoNUAYsCjQo or bBiiqLBJe
+OUTPUT
+Explanation dictionary: {"never" : "G(!( SUB_EXPR )), "or" : "|", "brDJByV" : "brDJByV", "yQoNUAYsCjQo" : "yQoNUAYsCjQo", "bBiiqLBJe" : "bBiiqLBJe"}
+So the final LTL translation is: G(!( brDJByV | yQoNUAYsCjQo | bBiiqLBJe)).FINISH
+
+INPUT 
+Natural Language: it never happens that either a car stops, the manager collect claims or a train has been launched
+OUTPUT
+Explanation dictionary: {"it never happens that" : "G(!( SUB_EXPR )), "either SUB_EXPR_1 or SUB_EXPR_2" : "SUB_EXPR_1 | SUB_EXPR_2", "a car stops" : "car_stops", "the manager collect claims" : "manager_collect_claims", "a train has been launched" : "train_has_been_launched}
+So the final LTL translation is: G(!(car_stops|manager_collect_claims|train_has_been_launched)).FINISH
+
+INPUT 
+Natural Language: at any time either the brake is released, the train has been launched or a train is crossing
+OUTPUT
+Explanation dictionary: {"at any time" : "G( SUB_EXPR )", "either SUB_EXPR_1 or SUB_EXPR_2" : "SUB_EXPR_1|SUB_EXPR_2", "the brake is released" : "brake_is_released", "the train has been launched" : "train_has_been_launched", "a train has been launched" : "train_is_crossing"}
+So the final LTL translation is: G(brake_is_released|train_has_been_launched|train_is_crossing).FINISH
+
+INPUT 
+Natural Language: eternally, VYfRmSkzKfgu and together VARATe and eQazD
+OUTPUT
+Explanation dictionary: {"eternally" : "G( SUB_EXPR )", "SUB_EXPR_1 and together SUB_EXPR_2" : "SUB_EXPR_1&SUB_EXPR_2", "VYfRmSkzKfgu" : "VYfRmSkzKfgu", "VARATe" : "VARATe", "eQazD" : "eQazD"}
+So the final LTL translation is: G(VYfRmSkzKfgu&VARATe&eQazD).FINISH
+
+
+INPUT 
+Natural Language: every time either the sensor captures data or the train is crossing then under no condition both the bar has to be repaired and the engine stops
+OUTPUT
+Explanation dictionary: {"every time SUB_EXPR_1 then under no condition SUB_EXPR_2" : "G( SUB_EXPR_1  -> G(! SUB_EXPR_2 ))", "every time SUB_EXPR_1 then SUB_EXPR_2" : "G(SUB_EXPR_1 -> SUB_EXPR_2)", "under no condition SUB_EXPR" : "G(!(SUB_EXPR))", "either the sensor captures data or the train is crossing" : "(sensor_captures_data|train_is_crossing)", "both the bar has to be repaired and the engine stops" : "(bar_has_to_be_repaired&engine_stops)"}
+So the final LTL translation is: G((sensor_captures_data|train_is_crossing)->G(!(bar_has_to_be_repaired&engine_stops))).FINISH
+
+INPUT 
+Natural Language: every time both the escalator is blocked and the semaphore is yellow then absolutely never, the car stops and a constructor instantiate objects
+OUTPUT
+Explanation dictionary: {"every time SUB_EXPR_1 then absolutely never SUB_EXPR_2" : "G( SUB_EXPR_1  -> G(! SUB_EXPR_2 ))", "every time SUB_EXPR_1 then SUB_EXPR_2" : "G(SUB_EXPR_1 -> SUB_EXPR_2)", "absolutely never SUB_EXPR" : "G(!(SUB_EXPR))", "both the escalator is blocked and the semaphore is yellow " : "(escalator_is_blocked&semaphore_is_yellow)", "the car stops and a constructor instantiate objects" : "(car_stops&constructor_instantiate_objects)"}
+So the final LTL translation is: G((escalator_is_blocked&semaphore_is_yellow)->G(!(car_stops&constructor_instantiate_objects))).FINISH
+
+INPUT 
+Natural Language: at no time BfIzuqN after ZzxhFAzuhkovM
+OUTPUT
+Explanation dictionary: {"at no time SUB_EXPR_1 after SUB_EXPR_2" : "G( SUB_EXPR_2  -> G(! SUB_EXPR_1 ))", "SUB_EXPR_1 after SUB_EXPR_2" : "G(SUB_EXPR_2 -> SUB_EXPR_1)", "at no time SUB_EXPR" : "G(!(SUB_EXPR))", "BfIzuqN" : "BfIzuqN", "ZzxhFAzuhkovM" : "ZzxhFAzuhkovM"}
+So the final LTL translation is: G((ZzxhFAzuhkovM)->G(!(BfIzuqN))).FINISH
+
+INPUT 
+Natural Language: always a house is open or the manager collect claims implies that at no time either the elevator is blocked or an elevator falls
+OUTPUT
+Explanation dictionary: {"always SUB_EXPR_1 implies that at no time SUB_EXPR_2" : "G( SUB_EXPR_1  -> G(! SUB_EXPR_2 ))", "always SUB_EXPR_1 implies SUB_EXPR_2" : "G(SUB_EXPR_1 -> SUB_EXPR_2)", "at no time SUB_EXPR" : "G(!(SUB_EXPR))", "a house is open or the manager collect claims" : "(house_is_open|manager_collect_claims)", "either the elevator is blocked or an elevator falls" : "(elevator_is_blocked|elevator_falls)"}
+So the final LTL translation is: G((house_is_open|manager_collect_claims)->G(!(elevator_is_blocked|elevator_falls))).FINISH
+
+INPUT 
+Natural Language: after both the motorbike falls down and the engine starts, it never happens that both the semaphore is red and the bar is up
+OUTPUT
+Explanation dictionary: {"after SUB_EXPR_1 it never happens SUB_EXPR_2" : "G( SUB_EXPR_1  -> G(! SUB_EXPR_2 ))", "after SUB_EXPR_1  SUB_EXPR_2" : "G(SUB_EXPR_1 -> SUB_EXPR_2)", "it never happens SUB_EXPR" : "G(!(SUB_EXPR))", "both the motorbike falls down and the engine starts" : "(motorbike_falls_down&engine_starts)", "both the semaphore is red and the bar is up" : "(semaphore_is_red&bar_is_up)"}
+So the final LTL translation is: G((motorbike_falls_down&engine_starts)->G(!(semaphore_is_red&bar_is_up))).FINISH
+
+INPUT 
+Natural Language: after xVwrrMwqBGrmTzj, in any case VdSBhstrx
+OUTPUT
+Explanation dictionary: {"after SUB_EXPR_1  SUB_EXPR_2" : "G( SUB_EXPR_1  -> SUB_EXPR_2 )", "in any case SUB_EXPR" : "G(SUB_EXPR)", "after SUB_EXPR_1 in any case SUB_EXPR_2" : "G( (SUB_EXPR_1)  -> G(!(SUB_EXPR_2))) }
+So the final LTL translation is: G((xVwrrMwqBGrmTzj)->G(VdSBhstrx)).FINISH
+
+INPUT
+Natural Language: eventually, the bar has to be repaired or the engine breaks after either the bar is down or the manager collect claims
+OUTPUT
+Explanation dictionary: {"eventually SUB_EXPR_1  after SUB_EXPR_2" : "G( (SUB_EXPR_1) -> F(SUB_EXPR_2) )", " SUB_EXPR_1  after SUB_EXPR_2" : "G((SUB_EXPR_2) -> (SUB_EXPR_1))", "eventually SUB_EXPR" : "F( SUB_EXPR )",  "the bar has to be repaired" : "bar_has_to_be_repaired", "the engine breaks" : "engine_breaks", "the bar is down" : "bar_is_down", "the manager collect claims" : "manager_collect_claims"}
+So the final LTL translation is: G((bar_is_down|manager_collect_claims)->F(bar_has_to_be_repaired|engine_breaks)).FINISH
+
+INPUT 
+Natural Language: as qnECRoCbqy, finally, BPYMUeFe
+OUTPUT
+Explanation dictionary: {"as SUB_EXPR_1 finally SUB_EXPR_2 " : "G( ( SUB_EXPR_1 ) -> F( SUB_EXPR_2 ) )", "as SUB_EXPR_1  SUB_EXPR_2" : "G( ( SUB_EXPR_1 ) -> ( SUB_EXPR_2 ) )", "finally SUB_EXPR " : "F( SUB_EXPR )"}
+So the final LTL translation is: G(( qnECRoCbqy ) -> F( BPYMUeFe )).FINISH
+
+INPUT 
+Natural Language: always when a motorbike has stopped and a constructor creates instances then sooner or later both the bar is up and the manager collect claims
+OUTPUT
+Explanation dictionary: {"always when SUB_EXPR_1 then sooner or later SUB_EXPR_2 " : "G( (SUB_EXPR_1) -> F(SUB_EXPR_2) )", "sooner or later SUB_EXPR" : "F( SUB_EXPR )" "always SUB_EXPR" : "G( SUB_EXPR )", "when SUB_EXPR_1 then SUB_EXPR_2" : "SUB_EXPR_1 -> SUB_EXPR_2",  "a motorbike has stopped" : "motorbike_has_stopped", "a constructor creates instances" : "constructor_creates_instances", "a motorbike has stopped and a constructor creates instances" : "motorbike_has_stopped & constructor_creates_instances", "the bar is up" : "bar_is_up", "the manager collect claims" : "manager_collect_claims", "both the bar is up and the manager collect claims" : "bar_is_up & manager_collect_claims"}
+So the final LTL translation is: G(( motorbike_has_stopped & constructor_creates_instances ) -> F( bar_is_up & manager_collect_claims )).FINISH
+
+INPUT 
+Natural Language: every time the brake is released or a house collapses then it will happen that the escalator speeds up and the bar is up
+OUTPUT
+Explanation dictionary: {"every time SUB_EXPR_1 then it will happen SUB_EXPR_2 " : "G( (SUB_EXPR_1) -> F(SUB_EXPR_2) )", "every time SUB_EXPR_1 then SUB_EXPR_2 " : "G( (SUB_EXPR_1) -> (SUB_EXPR_2) )", "it will happen SUB_EXPR_2 " : "F(SUB_EXPR_2)", "the brake is released" : "brake_is_released", "a house collapses" : "house_collapses", "the escalator speeds up" : "escalator_speeds_up", "the bar is up" : "bar_is_up"}
+So the final LTL translation is: G(( brake_is_released | house_collapses ) -> F( escalator_speeds_up & bar_is_up )).FINISH
+
+INPUT 
+Natural Language: if either hdBES_ or MNqG_GqR then at a certain moment Hjelv and d_WfjcacGugs_
+OUTPUT
+Explanation dictionary: { "if SUB_EXPR_1 then at a certain moment SUB_EXPR_2" : "G( (SUB_EXPR_1) -> F(SUB_EXPR_2) )", "if SUB_EXPR_1  SUB_EXPR_2" : "G( (SUB_EXPR_1) -> (SUB_EXPR_2) )", "at a certain moment" : "F(SUB_EXPR)" }
+So the final LTL translation is: G((hdBES_|MNqG_GqR)->F(Hjelv&d_WfjcacGugs_)).FINISH
+
+INPUT 
+Natural Language: if both the constructor instantiate objects and a semaphore is red then finally, a semaphore is yellow and the table has been moved
+OUTPUT
+Explanation dictionary: {"if SUB_EXPR_1 finally SUB_EXPR_2" : "G( (SUB_EXPR_1) -> F(SUB_EXPR_2) )", "if SUB_EXPR_1  SUB_EXPR_2" : "G( (SUB_EXPR_1) -> (SUB_EXPR_2) )", "finally SUB_EXPR" : "F(SUB_EXPR)",  "the constructor instantiate objects" : "constructor_instantiate_objects", "a semaphore is red" : "semaphore_is_red", "a semaphore is yellow" : "semaphore_is_yellow", "the table has been moved" : "table_has_been_moved"}
+So the final LTL translation is: G((constructor_instantiate_objects&semaphore_is_red)->F(semaphore_is_yellow&table_has_been_moved)).FINISH
+
+INPUT 
+Natural Language: after a motorbike has stopped and the train is crossing, at some point in time the elevator falls or a house is open
+OUTPUT
+Explanation dictionary: { "after SUB_EXPR_1 at some point SUB_EXPR_2 : "G( (SUB_EXPR_1) -> F(SUB_EXPR_2) )", "after SUB_EXPR_1  SUB_EXPR_2" : "G( (SUB_EXPR_1) -> (SUB_EXPR_2) )", "at some point in time" : "F(SUB_EXPR)", "a motorbike has stopped" : "motorbike_has_stopped", "the train is crossing" : "train_is_crossing", "the elevator falls" : "elevator_falls", "a house is open" : "house_is_open"}
+So the final LTL translation is: G((motorbike_has_stopped&train_is_crossing)->F(elevator_falls|house_is_open)).FINISH
+
+INPUT 
+Natural Language: at a certain moment either an elevator is open or the semaphore is green after a table has been moved and the engine breaks
+OUTPUT
+Explanation dictionary: {"at a certain moment SUB_EXPR_1 , after SUB_EXPR_2" : "G( (SUB_EXPR_2) -> F(SUB_EXPR_1) )", "SUB_EXPR_1  after SUB_EXPR_2" : "G( (SUB_EXPR_2) -> (SUB_EXPR_1) )", "at a certain moment SUB_EXPR" : "F( SUB_EXPR )"}
+So the final LTL translation is: G((motorbike_has_stopped&train_is_crossing)->F(elevator_falls|house_is_open)).FINISH
+
+INPUT 
+Natural Language: sooner or later the escalator speeds up and a motorbike falls down after either the motorbike has stopped or a house is built
+OUTPUT
+Explanation dictionary: {"sooner or later SUB_EXPR_1 , after SUB_EXPR_2" : "G( (SUB_EXPR_2) -> F(SUB_EXPR_1) )", "SUB_EXPR_1  after SUB_EXPR_2" : "G( (SUB_EXPR_2) -> (SUB_EXPR_1) )", "sooner or later SUB_EXPR_1" : "F(SUB_EXPR_1)", "a motorbike falls down" : "motorbike_falls_down", "the motorbike has stopped" : "motorbike_has_stopped", "the escalator speeds up" : "escalator_speeds_up", "a house is built" : "house_is_built"}
+So the final LTL translation is: G((motorbike_has_stopped|house_is_built)->F(escalator_speeds_up&motorbike_falls_down)).FINISH
+
+INPUT
+Natural Language: eventually, the bar has to be repaired or the engine breaks after either the bar is down or the manager collect claims
+OUTPUT
+Explanation dictionary: {"eventually SUB_EXPR_1  after SUB_EXPR_2" : "G( (SUB_EXPR_2) -> F(SUB_EXPR_1) )", "SUB_EXPR_1  after SUB_EXPR_2" : "G( (SUB_EXPR_2) -> (SUB_EXPR_1) )", "eventually SUB_EXPR" : "F( SUB_EXPR )",  "the bar has to be repaired" : "bar_has_to_be_repaired", "the engine breaks" : "engine_breaks", "the bar is down" : "bar_is_down", "the manager collect claims" : "manager_collect_claims"}
+So the final LTL translation is: G((bar_is_down|manager_collect_claims)->F(bar_has_to_be_repaired|engine_breaks)).FINISH
+
+INPUT 
+Natural Language: as either aqOxNFSwJ or deJMdBHk, eventually, both ySKbfcmTFFywFvw and xhoiWeiv
+OUTPUT
+Explanation dictionary: {"as SUB_EXPR_1 , eventually SUB_EXPR_2" : "G( (SUB_EXPR_1) -> F(SUB_EXPR_2) )", "as SUB_EXPR_1 , SUB_EXPR_2" : "G( (SUB_EXPR_1) -> (SUB_EXPR_2) )", "eventually SUB_EXPR" : "F(SUB_EXPR)", "either aqOxNFSwJ or deJMdBHk": "aqOxNFSwJ|deJMdBHk", "both ySKbfcmTFFywFvw and xhoiWeiv" : "ySKbfcmTFFywFvw&xhoiWeiv"}
+So the final LTL translation is: G((aqOxNFSwJ|deJMdBHk)->F(ySKbfcmTFFywFvw&xhoiWeiv)).FINISH
+
+INPUT 
+Natural Language: as aRxslSoeWOjQ or vilJTegYsXbeR, at some point in time SoLGzNlk
+OUTPUT
+Explanation dictionary: {"as SUB_EXPR_1 , at some point SUB_EXPR_2" : "G( (SUB_EXPR_1) -> F(SUB_EXPR_2) )", "as SUB_EXPR_1 , SUB_EXPR_2" : "G( (SUB_EXPR_1) -> (SUB_EXPR_2) )", "at some point in time SUB_EXPR" : "F(SUB_EXPR)", "aRxslSoeWOjQ or vilJTegYsXbeR" : "aRxslSoeWOjQ|vilJTegYsXbeR"}
+So the final LTL translation is: G((aRxslSoeWOjQ|vilJTegYsXbeR)->F(SoLGzNlk)).FINISH
+
+INPUT
+Natural Language: if TVpyLL then it is going to happen that zwPpFufrO or XAhdxWWgoxuqaf
+OUTPUT
+Explanation dictionary: {"if SUB_EXPR_1 , then it is going to happen SUB_EXPR_2" : "G( (SUB_EXPR_1) -> F(SUB_EXPR_2) )", "if SUB_EXPR_1  then SUB_EXPR_2" : "G( (SUB_EXPR_1) -> (SUB_EXPR_2) )", "it is going to happen that SUB_EXPR" : "F(SUB_EXPR)", "zwPpFufrO or XAhdxWWgoxuqaf" : "zwPpFufrO|XAhdxWWgoxuqaf"}
+So the final LTL translation is: G((TVpyLL)->F(zwPpFufrO|XAhdxWWgoxuqaf)).FINISH
+
+INPUT 
+Natural Language: it never happens that a semaphore is red and the bar is up after both the bar is up and the car starts
+OUTPUT
+Explanation dictionary: {"it never happens SUB_EXPR_1 after SUB_EXPR_2" : "G(( SUB_EXPR_2 ) -> G(!( SUB_EXPR_1 )))", "SUB_EXPR_1 after SUB_EXPR_2" : "G(SUB_EXPR_2 -> SUB_EXPR_1)", "it never happens SUB_EXPR" : "G(!(SUB_EXPR))", "a semaphore is red and the bar is up" : "(semaphore_is_red&bar_is_up)", "both the bar is up and the car starts" : "(bar_is_up&car_starts)"}
+So the final LTL translation is: G((bar_is_up&car_starts)->G(!(semaphore_is_red&bar_is_up))).FINISH
+
+INPUT 
+Natural Language: if ISwGkuvxY and cBWLoGwjXZjH then it will not happen that k_SEyHiY
+OUTPUT
+Explanation dictionary: {"if SUB_EXPR_1 then it will not happen SUB_EXPR_2" : "G(( SUB_EXPR_1 ) -> G(!( SUB_EXPR_2 )))", "if SUB_EXPR_1 then SUB_EXPR_2" : "G(SUB_EXPR_1 -> SUB_EXPR_2)", "it will not happen SUB_EXPR" : "G(!(SUB_EXPR))", "ISwGkuvxY and cBWLoGwjXZjH" : "(ISwGkuvxY&cBWLoGwjXZjH)", "k_SEyHiY" : "k_SEyHiY"}
+So the final LTL translation is: G((ISwGkuvxY&cBWLoGwjXZjH)->G(!(k_SEyHiY))).FINISH
+
+INPUT 
+Natural Language: if a table is brown or the escalator speeds up then at any time either a semaphore is yellow or the engine breaks
+OUTPUT
+Explanation dictionary: {"if SUB_EXPR_1 then at any time SUB_EXPR_2" : "G(( SUB_EXPR_1 ) -> G( SUB_EXPR_2 ))", "if SUB_EXPR_1 then SUB_EXPR_2" : "G(SUB_EXPR_1 -> SUB_EXPR_2)", " at any time SUB_EXPR" : "G(SUB_EXPR)"}
+So the final LTL translation is: G((table_is_brown|escalator_speeds_up)->G(semaphore_is_yellow|engine_breaks)).FINISH
+
+INPUT 
+Natural Language: every time either the escalator speeds up or a sensor gathers information then in any case the table has been moved and a motorbike has stopped
+OUTPUT
+Explanation dictionary: {"every time SUB_EXPR_1 then in any case SUB_EXPR_2" : "G(( SUB_EXPR_1 ) -> G( SUB_EXPR_2 ))", "every time SUB_EXPR_1 then SUB_EXPR_2" : "G(SUB_EXPR_1 -> SUB_EXPR_2)", " in any case SUB_EXPR" : "G(SUB_EXPR)"}
+So the final LTL translation is: G((escalator_speeds_up|sensor_gathers_information)->G(table_has_been_moved&motorbike_has_stopped)).FINISH
+
+INPUT 
+Natural Language: every time the train stops and the sensor gathers information after either the car starts or the bar is closing
+OUTPUT
+Explanation dictionary: {"every time SUB_EXPR_1 after SUB_EXPR_2" : "G(( SUB_EXPR_2 ) -> G( SUB_EXPR_1 ))", "SUB_EXPR_1 after SUB_EXPR_2" : "G(SUB_EXPR_2 -> SUB_EXPR_1)", " every time SUB_EXPR" : "G(SUB_EXPR)"}
+So the final LTL translation is: G((car_starts|bar_is_closing)->G(train_stops&sensor_gathers_information)).FINISH
+
+
+INPUT 
+Natural Language: first, at some point in time both a train stops and the brake is pressed, and then, at a certain moment a train has arrived
+OUTPUT
+Explanation dictionary: {"first, at some point in time SUB_EXPR_1 then at a certain moment SUB_EXPR_2" : "G(!( SUB_EXPR_1 ))|F(( SUB_EXPR_1 )&F(SUB_EXPR_2))", "at a certain moment SUB_EXPR" : "F(SUB_EXPR)"}
+So the final LTL translation is: G(!(train_stops&brake_is_pressed))|F((train_stops&brake_is_pressed)&F(train_has_arrived)).FINISH
+
+INPUT 
+Natural Language: it is going to happen that kYGWJw and, at some point DzeUQwLc_ODQUm afterwards
+OUTPUT
+Explanation dictionary: {"it is going to happen SUB_EXPR_1  at some moment SUB_EXPR_2 afterwards" : "G(!( SUB_EXPR_1 ))|F(( SUB_EXPR_1 )&F(SUB_EXPR_2))"}
+So the final LTL translation is: G(!(kYGWJw))|F((kYGWJw)&F(DzeUQwLc_ODQUm)).FINISH
+
+INPUT 
+Natural Language: finally, a car enters or the bar has to be repaired and, in the future either the bar has to be repaired or a table is old afterwards
+OUTPUT
+Explanation dictionary: {"finally SUB_EXPR_1  in the future SUB_EXPR_2 afterwards" : "G(!( SUB_EXPR_1 ))|F(( SUB_EXPR_1 )&F(SUB_EXPR_2))"}
+So the final LTL translation is: G(!(car_enters|bar_has_to_be_repaired))|F((car_enters|bar_has_to_be_repaired)&F(bar_has_to_be_repaired|table_is_old)).FINISH
+
+INPUT 
+Natural Language: eventually, a table is old or the constructor creates instances and, it is going to happen that either the engine stops or an elevator is open afterwards
+OUTPUT
+Explanation dictionary: {"eventually SUB_EXPR_1  it is going to happen SUB_EXPR_2 afterwards" : "G(!( SUB_EXPR_1 ))|F(( SUB_EXPR_1 )&F(SUB_EXPR_2))"}
+So the final LTL translation is: G(!(table_is_old|constructor_creates_instances))|F((table_is_old|constructor_creates_instances)&F(engine_stops|elevator_is_open)).FINISH
+
+INPUT 
+Natural Language: in the future a train has been launched and the escalator is blocked and, it will happen that the train is crossing or a manager collect claims afterwards
+OUTPUT
+Explanation dictionary: {"in the future SUB_EXPR_1 it will happen that SUB_EXPR_2 afterwards" : "G(!( SUB_EXPR_1 ))|F(( SUB_EXPR_1 )&F(SUB_EXPR_2))"}
+So the final LTL translation is: G(!(train_has_been_launched&escalator_is_blocked))|F((train_has_been_launched&escalator_is_blocked)&F(train_is_crossing|manager_collect_claims)).FINISH
+
+INPUT 
+Natural Language: at a certain moment VxJKDCCePtAstWC and, it is going to happen that both dObFap and mjEpqPJZphsuau afterwards
+OUTPUT
+Explanation dictionary: {"at a certain moment SUB_EXPR_1 it is going to happen SUB_EXPR_2 afterwards" : "G(!( SUB_EXPR_1 ))|F(( SUB_EXPR_1 )&F(SUB_EXPR_2))"}
+So the final LTL translation is: G(!(VxJKDCCePtAstWC))|F((VxJKDCCePtAstWC)&F(dObFap&mjEpqPJZphsuau)).FINISH
+
+INPUT 
+Natural Language: in the future AJUdpDtzfEUVl or FskjzkFKm_KZPl and, sooner or later ESlKDJiMc_mWeun and BhKPGbOypRdr afterwards
+OUTPUT
+Explanation dictionary: {"in the future SUB_EXPR_1 sooner or later SUB_EXPR_2 afterwards" : "G(!( SUB_EXPR_1 ))|F(( SUB_EXPR_1 )&F(SUB_EXPR_2))"}
+So the final LTL translation is: G(!(AJUdpDtzfEUVl|FskjzkFKm_KZPl))|F((AJUdpDtzfEUVl|FskjzkFKm_KZPl)&F(ESlKDJiMc_mWeun&BhKPGbOypRdr)).FINISH
+
+INPUT 
+Natural Language: first, at some point in time a semaphore is red and an elevator falls, and then, finally, both a table is brown and a house is built
+OUTPUT
+Explanation dictionary: {"first, at some point in time SUB_EXPR_1 finally SUB_EXPR_2 afterwards" : "G(!( SUB_EXPR_1 ))|F(( SUB_EXPR_1 )&F(SUB_EXPR_2))"}
+So the final LTL translation is: G(!(semaphore_is_red&elevator_falls))|F((semaphore_is_red&elevator_falls)&F(table_is_brown&house_is_built)).FINISH
+
+INPUT 
+Natural Language: first, finally, _TSoAFnLFFKH, and then, at some point JcPDkuUdwgfrk
+OUTPUT
+Explanation dictionary: {"first, finally SUB_EXPR_1 then at some point SUB_EXPR_2 " : "G(!( SUB_EXPR_1 ))|F(( SUB_EXPR_1 )&F(SUB_EXPR_2))"}
+So the final LTL translation is: G(!(_TSoAFnLFFKH))|F((_TSoAFnLFFKH)&F(JcPDkuUdwgfrk)).FINISH
+
+INPUT 
+Natural Language: at a certain moment either a train derails or a house collapses and, sooner or later both the elevator is blocked and the train derails afterwards
+OUTPUT
+Explanation dictionary: {"at a certain moment SUB_EXPR_1 sooner or later SUB_EXPR_2 afterwards " : "G(!( SUB_EXPR_1 ))|F(( SUB_EXPR_1 )&F(SUB_EXPR_2))"}
+So the final LTL translation is: G(!(train_derails|house_collapses))|F((train_derails|house_collapses)&F(elevator_is_blocked&train_derails)).FINISH
+
+INPUT 
+Natural Language: each time the escalator moves then whenever a table is old then finally, the train derails
+OUTPUT
+Explanation dictionary: {"each time SUB_EXPR_1 then whenever SUB_EXPR_2 then finally SUB_EXPR_3" : "G( SUB_EXPR_1  -> G( SUB_EXPR_2  -> F( SUB_EXPR_3 )))", "whenever SUB_EXPR_1 then finally SUB_EXPR_2" : "G( (SUB_EXPR_1)  -> F( SUB_EXPR_2 ))", "each time SUB_EXPR_1 then  SUB_EXPR_2" : "G( (SUB_EXPR_1)  ->  (SUB_EXPR_2) )", "whenever" : "G", "each time" : "G", "finally" : "F"}
+So the final LTL translation is: G(( escalator_moves ) -> G(( table_is_old ) -> F( train_derails ))).FINISH
+
+INPUT 
+Natural Language: _eFfsGdhZRpmkp and, as a consequence, if IiFaHJNZsO then finally, fYwil
+OUTPUT
+Explanation dictionary: {"SUB_EXPR_1 as a consequence  SUB_EXPR_2" : "G( (SUB_EXPR_1)  ->  (SUB_EXPR_2) )", "if SUB_EXPR_1 then  SUB_EXPR_2" : "G( (SUB_EXPR_1)  -> ( SUB_EXPR_2 ))",  "SUB_EXPR_1 as a consequence if SUB_EXPR_2 then finally SUB_EXPR_3" : "G( SUB_EXPR_1  -> G( SUB_EXPR_2  -> F( SUB_EXPR_3 )))"}
+So the final LTL translation is: G(( _eFfsGdhZRpmkp ) -> G(( IiFaHJNZsO ) -> F( fYwil ))).FINISH
+
+INPUT 
+Natural Language: the engine starts implies that at a certain moment a motorbike has stopped after the motorbike catches fire
+OUTPUT
+Explanation dictionary: {"SUB_EXPR_1 implies at a certain moment SUB_EXPR_3 after SUB_EXPR_2" : "G( SUB_EXPR_1  -> G( SUB_EXPR_2  -> F( SUB_EXPR_3 )))", "at a certain moment SUB_EXPR_2 after SUB_EXPR_1" : "G( (SUB_EXPR_1)  -> F( SUB_EXPR_2 ))", "SUB_EXPR_1 implies  SUB_EXPR_2" : "G( (SUB_EXPR_1)  ->  (SUB_EXPR_2) )"}
+So the final LTL translation is: G(( engine_starts ) -> G(( motorbike_catches_fire ) -> F( motorbike_has_stopped ))).FINISH
+
+
